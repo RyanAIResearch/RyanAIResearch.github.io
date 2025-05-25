@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROADS 2024 - Research On Algorithms & Data Structures to Mega-AI Models Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-neon: #00ffff;
+            --secondary-neon: #ff00ff;
+            --accent-blue: #0099ff;
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(15, 15, 25, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --gradient-neon: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--dark-bg);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 153, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(-10px); }
+            50% { transform: translateX(20px) translateY(10px); }
+            75% { transform: translateX(-10px) translateY(20px); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary-neon);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.6; }
+            50% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+        }
+
+        /* Right Side Navigation */
+        .right-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            min-width: 220px;
+            box-shadow: 
+                0 8px 32px rgba(0, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .right-nav:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 
+                0 12px 40px rgba(0, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-header {
+            color: var(--primary-neon);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.85rem;
+            padding: 0.75rem 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            display: block;
+            border-radius: 10px;
+            border-left: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-neon);
+            border-left-color: var(--primary-neon);
+            background: rgba(0, 255, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-neon);
+            background: rgba(0, 255, 255, 0.1);
+            border-left-color: var(--primary-neon);
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            z-index: 1001;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary-neon);
+            margin: 5px 0;
+            transition: 0.3s;
+            border-radius: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, 
+                rgba(10, 10, 15, 0.9) 0%, 
+                rgba(0, 51, 102, 0.8) 50%, 
+                rgba(15, 15, 25, 0.9) 100%);
+            color: white;
+            padding: 10rem 0 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.05) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(255, 0, 255, 0.05) 50%, transparent 70%);
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.8)); }
+        }
+
+        .hero h2 {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .hero-info {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin: 4rem 0;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .hero-info-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-info-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .hero-info-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-right: 260px;
+            transition: margin-right 0.3s ease;
+        }
+
+        section {
+            padding: 5rem 0;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary-neon);
+            position: relative;
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gradient-neon);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Glass card styling */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        .highlight {
+            font-weight: 700;
+            background: var(--gradient-neon);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .subsection {
+            font-weight: 700;
+            color: var(--primary-neon);
+            font-size: 1.1rem;
+            margin-right: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .award-text {
+            font-style: italic;
+            font-weight: 600;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            display: inline-block;
+            margin: 0.2rem 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .award-text::before {
+            content: '✨';
+            margin-right: 5px;
+        }
+
+        .award-text:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Grid layouts */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .grid-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-neon);
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-item:hover::before {
+            opacity: 0.3;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .grid-item h3 {
+            color: var(--primary-neon);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+        }
+
+        .date {
+            font-size: 1.3rem;
+            color: var(--secondary-neon);
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Speaker cards */
+        .speaker-card {
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .speaker-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .speaker-card:hover::before {
+            opacity: 1;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-neon);
+            box-shadow: 0 25px 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .speaker-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-neon);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            position: relative;
+        }
+
+        .speaker-img::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .speaker-name {
+            font-size: 1.4rem;
+            color: var(--primary-neon);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+        }
+
+        .speaker-title {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-affiliation {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Schedule table */
+        .schedule-table {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            color: var(--text-primary);
+            padding: 1.5rem;
+            text-align: left;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .schedule-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .schedule-table .break-row {
+            background: rgba(255, 0, 255, 0.05);
+        }
+
+        .schedule-table .break-row:hover {
+            background: rgba(255, 0, 255, 0.1);
+        }
+
+        .time-slot {
+            font-weight: 600;
+            color: var(--primary-neon);
+            white-space: nowrap;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--primary-neon);
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid var(--primary-neon);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-neon);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 4rem 0;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: var(--primary-neon);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .right-nav {
+                transform: translateX(100%) translateY(-50%);
+                top: 50%;
+                right: 0;
+                height: 100vh;
+                border-radius: 0;
+                padding: 3rem 2rem;
+                min-width: 280px;
+                transition: transform 0.3s ease;
+            }
+            
+            .right-nav.active {
+                transform: translateX(0) translateY(-50%);
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.1rem;
+            }
+            
+            .hero-info {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Right Side Navigation -->
+    <nav class="right-nav" id="rightNav">
+        <div class="nav-header">Navigation</div>
+        <ul class="nav-links">
+            <li><a href="#about" class="nav-link">Workshop Summary</a></li>
+            <li><a href="#speakers" class="nav-link">Keynote Speakers</a></li>
+            <li><a href="#schedule" class="nav-link">Schedule</a></li>
+            <li><a href="#organizers" class="nav-link">Organizers</a></li>
+            <li><a href="#submission" class="nav-link">Call for Papers</a></li>
+            <li><a href="#scope" class="nav-link">Scope</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>ROADS to Mega-AI</h1>
+                <h2>Research On Algorithms & Data Structures Workshop</h2>
+                <div class="hero-info">
+                    <div class="hero-info-item">
+                        <i>📅</i>
+                        <strong>December 14-15, 2024</strong>
+                    </div>
+                    <div class="hero-info-item">
+                        <i>📍</i>
+                        <strong>NeurIPS 2024</strong>
+                    </div>
+                    <div class="hero-info-item">
+                        <i>🌐</i>
+                        <strong>International Workshop</strong>
+                    </div>
+                </div>
+                <div style="margin-top: 3rem;">
+                    <a href="#submission" class="btn">Submit Your Paper</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="fade-in">
+            <h2 class="section-title">Workshop Summary</h2>
+            <div class="glass-card">
+                <p class="content-text">
+                    Current machine learning (ML) increasingly depends on scaling up data, model size, and compute resources to reach state-of-the-art performance. While this strategy has driven remarkable progress, it also raises critical challenges: longer runtimes, higher memory and energy demands, inefficient hardware utilization, and limited deployment scalability. The current <span class="highlight">scaling-centric</span> approach often neglects the cumulative costs across the computational stack, threatening ML's sustainability and accessibility.
+                </p>
+                <p class="content-text">
+                    <span class="highlight">MOCOCO</span> (<span class="highlight">MO</span>deling and <span class="highlight">CO</span>mputation <span class="highlight">CO</span>-Design for Efficient Machine Learning) offers a venue to rethink ML through the joint design of modeling and computation. It promotes efficiency-driven co-design across model architecture, learning algorithms, software, and hardware. From general to domain-specific ML in science and healthcare, MOCOCO welcomes work that aligns efficiency objectives across all layers of the ML pipeline.
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Activities.</span> The workshop will include keynotes, a panel discussion, oral presentations, and poster sessions. We invite high-quality original papers of up to 4 pages. All accepted papers will be presented as posters, with a subset selected for oral presentations. Two outstanding papers and two outstanding student papers will be recognized by the program committee. <span class="award-text">Our confirmed sponsor, Lambda, will award $1,500 in GPU credits to each outstanding paper team</span>.
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Attendance Estimate.</span> We expect between 80 and 100 paper submissions and around 200 attendees.
+                </p>
+            </div>
+        </section>
+
+        <!-- Important Dates -->
+        <section id="dates" class="fade-in">
+            <h2 class="section-title">Important Dates</h2>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <h3>Paper Submission Deadline</h3>
+                    <p class="date">September 30, 2024</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Anywhere on Earth (AoE)</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Accept/Reject Notification</h3>
+                    <p class="date">October 30, 2024</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Anywhere on Earth (AoE)</p>
+                </div>
+                <div class="grid-item">
+                    <h3>Workshop Date</h3>
+                    <p class="date">December 14-15, 2024</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Co-located with NeurIPS 2024</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Speakers Section -->
+        <section id="speakers" class="fade-in">
+            <h2 class="section-title">Keynote Speakers</h2>
+            <div class="grid-container">
+                <div class="speaker-card">
+                    <div class="speaker-img">LB</div>
+                    <h3 class="speaker-name">Leon Bottou</h3>
+                    <p class="speaker-title">Distinguished Researcher</p>
+                    <p class="speaker-affiliation">Meta AI Research</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">BC</div>
+                    <h3 class="speaker-name">Beidi Chen</h3>
+                    <p class="speaker-title">Panel Discussion Host</p>
+                    <p class="speaker-affiliation">Carnegie Mellon University</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">?</div>
+                    <h3 class="speaker-name">Speaker TBD</h3>
+                    <p class="speaker-title">Invited Speaker</p>
+                    <p class="speaker-affiliation">To Be Announced</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">?</div>
+                    <h3 class="speaker-name">Speaker TBD</h3>
+                    <p class="speaker-title">Invited Speaker</p>
+                    <p class="speaker-affiliation">To Be Announced</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="fade-in">
+            <h2 class="section-title">Workshop Schedule</h2>
+            <div class="schedule-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Event</th>
+                            <th>Speaker/Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-slot">8:30 - 9:00</td>
+                            <td><strong>Welcome Remarks</strong></td>
+                            <td>Zhaozhuo Xu and Jianwen Xie</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">9:00 - 9:30</td>
+                            <td><strong>Invited Talk</strong></td>
+                            <td>Leon Bottou</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">9:30 - 10:00</td>
+                            <td><strong>Invited Talk</strong></td>
+                            <td>TBD</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-slot">10:00 - 10:15</td>
+                            <td><strong>☕ Coffee Break</strong></td>
+                            <td>Networking Opportunity</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">10:15 - 10:45</td>
+                            <td><strong>Contributed Talks</strong></td>
+                            <td>Workshop Oral Papers 1</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">10:45 - 11:45</td>
+                            <td><strong>Morning Poster Session</strong></td>
+                            <td>All Accepted Posters</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-slot">11:45 - 13:00</td>
+                            <td><strong>🍽️ Lunch Break</strong></td>
+                            <td>Networking Lunch</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">13:00 - 13:30</td>
+                            <td><strong>Invited Talk</strong></td>
+                            <td>TBD</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">13:30 - 14:00</td>
+                            <td><strong>Invited Talk</strong></td>
+                            <td>TBD</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">14:00 - 15:00</td>
+                            <td><strong>Contributed Talks</strong></td>
+                            <td>Workshop Oral Papers 2</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-slot">15:00 - 15:15</td>
+                            <td><strong>☕ Coffee Break</strong></td>
+                            <td>Networking Opportunity</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">15:15 - 15:45</td>
+                            <td><strong>Industry Demo</strong></td>
+                            <td>Lambda</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">15:45 - 16:15</td>
+                            <td><strong>Panel Discussion</strong></td>
+                            <td>Hosted by Beidi Chen</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">16:15 - 16:45</td>
+                            <td><strong>Afternoon Poster Session</strong></td>
+                            <td>All Accepted Posters</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">16:45 - 17:00</td>
+                            <td><strong>Closing Remarks</strong></td>
+                            <td>Workshop Organizers</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Organizers Section -->
+        <section id="organizers" class="fade-in">
+            <h2 class="section-title">Workshop Organizers</h2>
+            <div class="grid-container">
+                <div class="speaker-card">
+                    <div class="speaker-img">ZX</div>
+                    <h4 class="speaker-name">Zhaozhuo Xu</h4>
+                    <p class="speaker-affiliation">Rice University</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">JX</div>
+                    <h4 class="speaker-name">Jianwen Xie</h4>
+                    <p class="speaker-affiliation">University of California</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">?</div>
+                    <h4 class="speaker-name">Co-organizer</h4>
+                    <p class="speaker-affiliation">To Be Announced</p>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-img">?</div>
+                    <h4 class="speaker-name">Co-organizer</h4>
+                    <p class="speaker-affiliation">To Be Announced</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submission Section -->
+        <section id="submission" class="fade-in">
+            <h2 class="section-title">Call for Papers</h2>
+            <div class="glass-card">
+                <h3 style="color: var(--primary-neon); margin-bottom: 1rem; font-family: 'Orbitron', monospace;">Submission Guidelines</h3>
+                <p class="content-text">
+                    We invite researchers and practitioners to submit their original work on algorithms and data structures for mega-AI models. Topics of interest include but are not limited to:
+                </p>
+                <ul style="margin: 1.5rem 0; padding-left: 2rem; color: var(--text-secondary);">
+                    <li style="margin: 0.5rem 0;">Efficient algorithms for large-scale model training</li>
+                    <li style="margin: 0.5rem 0;">Data structures for handling massive datasets</li>
+                    <li style="margin: 0.5rem 0;">Optimization techniques for mega-AI models</li>
+                    <li style="margin: 0.5rem 0;">Distributed computing approaches</li>
+                    <li style="margin: 0.5rem 0;">Memory-efficient architectures</li>
+                    <li style="margin: 0.5rem 0;">Scalability challenges and solutions</li>
+                </ul>
+                <p class="content-text">
+                    <span class="subsection">Paper Format:</span> Papers should be formatted according to the NeurIPS 2024 style guidelines and should not exceed 8 pages (excluding references and appendices).
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Submission Deadline:</span> September 30, 2024, Anywhere on Earth (AoE)
+                </p>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="#" class="btn">Submit Your Paper</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scope Section -->
+        <section id="scope" class="fade-in">
+            <h2 class="section-title">Workshop Scope</h2>
+            <div class="glass-card">
+                <p class="content-text">
+                    This workshop focuses on the intersection of algorithmic research and practical AI model development. We welcome contributions across several key areas:
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Algorithmic Foundations:</span> Novel algorithms for training, inference, and optimization of large-scale AI models, with emphasis on theoretical guarantees and practical performance.
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Data Structures:</span> Innovative data structures for handling massive datasets, including efficient storage, retrieval, and processing mechanisms for AI workloads.
+                </p>
+                <p class="content-text">
+                    <span class="subsection">System Design:</span> Co-design approaches that consider hardware-software interactions, distributed computing architectures, and memory-efficient implementations.
+                </p>
+                <p class="content-text">
+                    <span class="subsection">Efficiency Metrics:</span> Research on novel evaluation metrics for AI system efficiency, including energy consumption, carbon footprint, and resource utilization measurements.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="fade-in">
+            <h2 class="section-title">Contact</h2>
+            <div class="glass-card" style="text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-secondary);">
+                    For any questions or inquiries about the workshop, please contact the organizers at:
+                </p>
+                <p style="font-size: 1.5rem; color: var(--primary-neon); font-weight: 600; font-family: 'Orbitron', monospace;">
+                    roads2024@neurips.cc
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 ROADS 2024 Workshop. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#">📧</a>
+                    <a href="#">🐦</a>
+                    <a href="#">💼</a>
+                    <a href="#">📘</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const rightNav = document.getElementById('rightNav');
+        
+        menuToggle.addEventListener('click', function() {
+            rightNav.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    rightNav.classList.remove('active');
+                }
+            });
+        });
+
+        // Active link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            if (!section.classList.contains('hero')) {
+                observer.observe(section);
+            }
+        });
+
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('load', function() {
+            createParticles();
+            updateActiveLink();
+        });
+
+        // Add glitch effect to title on hover
+        const heroTitle = document.querySelector('.hero h1');
+        heroTitle.addEventListener('mouseenter', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = 'titleGlow 3s ease-in-out infinite';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

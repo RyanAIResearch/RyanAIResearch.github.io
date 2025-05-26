@@ -606,6 +606,209 @@
             color: var(--text-secondary);
             text-align: justify;
         }
+
+        /* Program Committee Styles */
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .committee-member {
+            background: rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .committee-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .committee-member:hover::before {
+            left: 100%;
+        }
+
+        .committee-member:hover {
+            border-color: var(--primary-neon);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .member-name {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-neon);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .member-affiliation {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        /* Topic List Styles */
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .topic-item {
+            background: rgba(0, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.08), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .topic-item:hover::before {
+            left: 100%;
+        }
+
+        .topic-item:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15);
+        }
+
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-neon);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .topic-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Link styles */
+        .content-text a {
+            color: var(--primary-neon);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .content-text a:hover {
+            border-bottom-color: var(--primary-neon);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Clickable Card Styles */
+        .clickable-card {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .clickable-card:hover {
+            border-color: rgba(0, 255, 255, 0.4) !important;
+            transform: translateY(-8px) !important;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(0, 255, 255, 0.3) !important;
+        }
+
+        .clickable-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient-neon);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .clickable-card:hover::after {
+            opacity: 0.2;
+        }
+
+        .click-indicator {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            color: var(--primary-neon);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', monospace;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .clickable-card:hover .click-indicator {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .click-indicator span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .click-indicator {
+                opacity: 1;
+                position: static;
+                margin-top: 1rem;
+                text-align: center;
+                transform: none;
+            }
+            
+            .clickable-card:active {
+                transform: translateY(-5px) scale(0.98) !important;
+            }
+        }
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -716,134 +919,6 @@
             line-height: 1.7;
             color: var(--text-secondary);
             text-align: justify;
-        }
-
-        /* Program Committee Styles */
-        .committee-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .committee-member {
-            background: rgba(0, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .committee-member::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .committee-member:hover::before {
-            left: 100%;
-        }
-
-        .committee-member:hover {
-            border-color: var(--primary-neon);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
-        }
-
-        .member-name {
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-neon);
-            margin-bottom: 0.5rem;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .member-affiliation {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            opacity: 0.8;
-        }
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-start;
-            gap: 2rem;
-        }
-
-        .topic-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-        }
-
-        .topic-item {
-            background: rgba(0, 255, 255, 0.03);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 1.8rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topic-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.08), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .topic-item:hover::before {
-            left: 100%;
-        }
-
-        .topic-item:hover {
-            border-color: rgba(0, 255, 255, 0.3);
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15);
-        }
-
-        .topic-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-neon);
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-            font-family: 'Exo 2', sans-serif;
-        }
-
-        .topic-description {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            opacity: 0.9;
-            line-height: 1.5;
-            margin: 0;
         }
 
         /* Schedule table */
@@ -1030,8 +1105,26 @@
 
             .bio-avatar {
                 align-self: center;
-                width: 200px;
-                height: 200px;
+                width: 100px;
+                height: 100px;
+            }
+
+            .committee-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.2rem;
+            }
+
+            .topic-item {
+                padding: 1.6rem;
+            }
+
+            .topic-title {
+                font-size: 1.05rem;
+            }
+
+            .click-indicator {
+                font-size: 0.75rem;
+                padding: 6px 12px;
             }
         }
         
@@ -1064,8 +1157,8 @@
             }
 
             .bio-avatar {
-                width: 200px;
-                height: 200px;
+                width: 100px;
+                height: 100px;
             }
 
             .bio-name {
@@ -1074,6 +1167,42 @@
 
             .bio-text {
                 font-size: 0.95rem;
+            }
+
+            .committee-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .committee-member {
+                padding: 1.2rem;
+            }
+
+            .member-name {
+                font-size: 1rem;
+            }
+
+            .topic-item {
+                padding: 1.4rem;
+            }
+
+            .topic-title {
+                font-size: 1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .topic-description {
+                font-size: 0.9rem;
+            }
+
+            .click-indicator {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 1rem;
+                opacity: 1;
+                transform: none;
+                text-align: center;
             }
         }
     </style>
@@ -1087,7 +1216,7 @@
         <div class="nav-header">Navigation</div>
         <ul class="nav-links">
             <li><a href="#about" class="nav-link">Workshop Summary</a></li>
-            <li><a href="#speakers" class="nav-link">Invited Speakers</a></li>
+            <li><a href="#speakers" class="nav-link">Keynote Speakers</a></li>
             <li><a href="#schedule" class="nav-link">Schedule</a></li>
             <li><a href="#organizers" class="nav-link">Organizers</a></li>
             <li><a href="#submission" class="nav-link">Call for Papers</a></li>
@@ -1125,9 +1254,9 @@
                         <strong>International Workshop</strong>
                     </div>
                 </div>
-                <!-- <div style="margin-top: 3rem;">
+                <div style="margin-top: 3rem;">
                     <a href="#submission" class="btn">Submit Your Paper</a>
-                </div> -->
+                </div>
             </div>
         </section>
 
@@ -1152,9 +1281,9 @@
 
         <!-- Speakers Section -->
         <section id="speakers" class="fade-in">
-            <h2 class="section-title">Invited Speakers</h2>
+            <h2 class="section-title">Keynote Speakers</h2>
             
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://ai.meta.com/people/301718759371133/leon-bottou/">
                 <div class="bio-avatar">
                     <img src="images/bottou.jpg" alt="Leon Bottou">
                 </div>
@@ -1168,9 +1297,12 @@
                         Leon Bottou is a renowned researcher in machine learning, optimization, and AI systems, currently a Research Scientist at Meta AI. Bottou is best known for his pioneering work on stochastic gradient descent (SGD), large-scale learning algorithms, and practical AI systems. His influential contributions span from the development of the DjVu document compression technology to the widely used LeNet convolutional network architecture. Bottou has also made foundational contributions to online learning, kernel methods, and scalable ML systems. His work has been widely recognized across both academia and industry, making him a leader for NeurIPS discussions on the future of scalable and sustainable ML from modeling to practical deployment.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
 
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://www.cs.cmu.edu/~zhihaoj2/">
                 <div class="bio-avatar">
                     <img src="images/zhihao.jpg" alt="Zhihao Jia">
                 </div>
@@ -1184,9 +1316,12 @@
                         Zhihao Jia is an assistant professor in the Computer Science Department at Carnegie Mellon University. His research interests lie in the intersection of computer systems and machine learning, with a focus on building efficient, scalable, and performant systems for ML applications. Prof. Jia received his PhD and MS from Stanford University where he also got the Arthur Samuel Best Doctoral Thesis Award. He is the recipient of the Sloan Research Fellow, NSF CAREER award and research awards from Amazon, Cisco, Google, Meta, Oracle, Qualcomm, and Samsung.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
 
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://scholar.google.com/citations?user=7k_1QFIAAAAJ&hl=zh-CN">
                 <div class="bio-avatar">
                     <img src="images/yingnian_wu.jpg" alt="Ying Nian Wu">
                 </div>
@@ -1200,9 +1335,12 @@
                         Ying Nian Wu is a professor in the Department of Statistics at University of California, Los Angeles (UCLA). He received his Ph.D. in statistics from Harvard University in 1996. Before joining UCLA, he was an assistant professor in the Department of Statistics, University of Michigan from 1997 to 1999. His research interests include generative modeling, representation learning, and computer vision. He received Honorable Mention for the David Marr Prize in 1999 and 2007 for generative modeling in computer vision.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
 
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://sbmi.uth.edu/faculty-and-staff/jim-zheng.htm">
                 <div class="bio-avatar">
                     <img src="images/wenjinzheng.jpg" alt="W. Jim Zheng">
                 </div>
@@ -1215,6 +1353,9 @@
                     <p class="bio-text">
                         W. Jim Zheng is a professor at the McWilliams School of Biomedical Informatics at UTHealth Houston. His research bridges efficient machine learning and biomedical informatics, with a focus on scalable knowledge representation, high-throughput genomic data mining, and AI-driven translational medicine. He pioneered Genome3D for 3D genome visualization and developed Ontology Fingerprints, an early embedding framework for biomedical knowledge. His group also advanced efficient deep learning approaches for drug combination prediction and alternative splicing analysis with AlphaFold. Dr. Zheng will introduce the significant scalability challenges in the core computation tasks of NIH BRAIN Initiative and bring a strong scientific rationale for this workshop.
                     </p>
+                </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
                 </div>
             </div>
         </section>
@@ -1316,7 +1457,7 @@
         <section id="organizers" class="fade-in">
             <h2 class="section-title">Workshop Organizers</h2>
             
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://scholar.google.com/citations?hl=en&user=7tDlVAsAAAAJ&view_op=list_works&sortby=pubdate">
                 <div class="bio-avatar">
                     <img src="images/zhaozhuo.jpg" alt="Zhaozhuo Xu">
                 </div>
@@ -1330,9 +1471,12 @@
                         Zhaozhuo Xu is an Assistant Professor in the Department of Computer Science at Stevens Institute of Technology. His research focuses on advancing scalable and sustainable AI, particularly developing randomized algorithms to improve the efficiency of AI systems on commodity hardware for practical applications. Dr. Xu's work has been featured in leading academic venues, including NeurIPS, ICML, ICLR, KDD, ACL, and EMNLP. His innovations in scalable AI have been integrated into widely used libraries such as Huggingface and adopted by several startups. He also serves as an area chair for major conferences, including NeurIPS, ICML, ICLR, ACL, EMNLP Main/Demo Track, and COLING. He received the AAAI New Faculty Highlights in 2025.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
 
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="http://www.stat.ucla.edu/~jxie/">
                 <div class="bio-avatar">
                     <img src="images/jianwen.jpg" alt="Jianwen Xie">
                 </div>
@@ -1346,9 +1490,12 @@
                         Jianwen Xie is a Research Scientist at Lambda, Inc, with a focus on generative modeling, vision language models, AI for Science, and embodied AI. He received his Ph.D. from the University of California, Los Angeles (UCLA). Dr. Xie serves as a Senior Area Chair for NeurIPS, and Area Chair for ICML, ICLR, CVPR, ECCV and WACV. He is currently an Associate Editor of IEEE Transactions on Neural Networks and Learning Systems (TNNLS), IEEE Transactions on Image Processing (TIP), Pattern Recognition (PR), Computer Vision and Image Understanding (CVIU), and Journal of Artificial Intelligence Research (JAIR). He co-organized tutorials at CVPR, ICCV, ECCV, and IJCAI.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
 
-            <div class="speaker-bio-card">
+            <div class="speaker-bio-card clickable-card" data-url="https://www.andrew.cmu.edu/user/beidic/">
                 <div class="bio-avatar">
                     <img src="images/beidi_chen_pic.jpg" alt="Beidi Chen">
                 </div>
@@ -1362,6 +1509,9 @@
                         Beidi Chen is an Assistant Professor at Carnegie Mellon University and a Research Scientist at FAIR. Before that, she was a postdoctoral scholar at Stanford University. She received her Ph.D. from Rice University. Her research focuses on efficient deep learning; specifically, she designs and optimizes randomized algorithms on current hardware to accelerate large machine learning systems. Her work has won best paper runner-up at ICML 2022 and she was selected as a Rising Star in EECS by MIT and UIUC. She was a workshop chair for MLSys 2023 and 2024, and she co-organized many workshops at ICML and NeurIPS.
                     </p>
                 </div>
+                <div class="click-indicator">
+                    <span>🔗 Click to visit profile</span>
+                </div>
             </div>
         </section>
 
@@ -1371,17 +1521,8 @@
             <div class="glass-card">
                 <h3 style="color: var(--primary-neon); margin-bottom: 1rem; font-family: 'Orbitron', monospace;">Submission Guidelines</h3>
                 <p class="content-text">
-                    We invite researchers and practitioners to submit their original work on modeling and computation co-design for efficient machine learning. Topics of interest include but are not limited to:
+                    We invite researchers and practitioners to submit their original work on modeling and computation co-design for efficient machine learning. Please refer to the <a href="#scope" style="color: var(--primary-neon); text-decoration: none;">Workshop Scope</a> section for detailed topics of interest.
                 </p>
-                <ul style="margin: 1.5rem 0; padding-left: 2rem; color: var(--text-secondary);">
-                    <li style="margin: 0.5rem 0;">Data-efficient modeling beyond auto-regressive modeling</li>
-                    <li style="margin: 0.5rem 0;">Unified efficient modeling across multi-modalities, including text, vision, audio, and genes</li>
-                    <li style="margin: 0.5rem 0;">Efficient model architecture beyond Transformers</li>
-                    <li style="margin: 0.5rem 0;">Hardware-aware ML algorithms beyond giant matrix multiplication for efficient training and inference</li>
-                    <li style="margin: 0.5rem 0;">Benchmarks to evaluate accuracy-efficiency trade-offs of ML systems</li>
-                    <li style="margin: 0.5rem 0;">Co-design of modeling, algorithm, system, and hardware for efficient ML</li>
-                    <li style="margin: 0.5rem 0;">Efficient ML for driving accelerated scientific discovery</li>
-                </ul>
                 <p class="content-text">
                     <span class="subsection">Paper Format:</span> Papers should be formatted according to the NeurIPS 2025 style guidelines and should not exceed 4 pages (excluding references and appendices).
                 </p>
@@ -1391,9 +1532,9 @@
                 <p class="content-text">
                     <span class="subsection">Awards:</span> Two outstanding papers and two outstanding student papers will be recognized by the program committee. Our confirmed sponsor, Lambda, will award $1,500 in GPU credits to each outstanding paper team. To promote diversity and inclusion, we have secured sponsorship from Lambda to offer support, including GPU cloud credits for outstanding papers.
                 </p>
-                <!-- <div style="text-align: center; margin-top: 3rem;">
+                <div style="text-align: center; margin-top: 3rem;">
                     <a href="#" class="btn">Submit Your Paper</a>
-                </div> -->
+                </div>
             </div>
         </section>
 
@@ -1631,6 +1772,29 @@
             setTimeout(() => {
                 this.style.animation = 'titleGlow 3s ease-in-out infinite';
             }, 100);
+        });
+
+        // Clickable cards functionality
+        document.querySelectorAll('.clickable-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const url = this.getAttribute('data-url');
+                if (url) {
+                    window.open(url, '_blank');
+                }
+            });
+
+            // Add visual feedback on click
+            card.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(-5px) scale(0.98)';
+            });
+
+            card.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-8px) scale(1)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
         });
     </script>
 </body>

@@ -492,59 +492,64 @@
             font-family: 'Orbitron', monospace;
         }
 
-        /* Speaker cards */
-        .speaker-card {
-            text-align: center;
+        /* Speaker Biography Styles */
+
+        .speaker-bio-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
         }
 
-        .speaker-card::before {
+        .speaker-bio-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            transition: left 0.5s ease;
         }
 
-        .speaker-card:hover::before {
-            opacity: 1;
+        .speaker-bio-card:hover::before {
+            left: 100%;
         }
 
-        .speaker-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-neon);
-            box-shadow: 0 25px 50px rgba(0, 255, 255, 0.3);
+        .speaker-bio-card:hover {
+            border-color: rgba(255, 0, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 255, 0.2);
         }
 
-        .speaker-img {
+        .bio-avatar {
+            flex-shrink: 0;
             width: 120px;
             height: 120px;
             border-radius: 50%;
             background: var(--gradient-neon);
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            padding: 3px;
             position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 25px rgba(255, 0, 255, 0.4),
+                0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .speaker-img::before {
+        .bio-avatar::before {
             content: '';
             position: absolute;
             top: -3px;
@@ -554,115 +559,163 @@
             background: var(--gradient-neon);
             border-radius: 50%;
             z-index: -1;
-            animation: rotate 3s linear infinite;
+            animation: rotate 4s linear infinite;
         }
 
-        .speaker-real-img {
+        .bio-avatar img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
-            margin: 0 auto 1.5rem;
-            display: block;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.5),
-                0 8px 32px rgba(0, 0, 0, 0.3);
-            position: relative;
-            /* border: 3px solid transparent; */
-            background: var(--gradient-neon);
-            /* padding: 3px; */
             transition: all 0.3s ease;
         }
 
-        .speaker-real-img::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            background: var(--gradient-neon);
-            border-radius: 50%;
-            z-index: -1;
-            animation: rotate 3s linear infinite;
+        .bio-content {
+            flex: 1;
         }
 
-        .speaker-real-img:hover {
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.7),
-                0 12px 40px rgba(0, 0, 0, 0.4);
+        .bio-header {
+            margin-bottom: 1.5rem;
         }
 
-        .speaker-real-img-container {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            background: var(--gradient-neon);
-            padding: 3px;
-            margin: 0 auto 1.5rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.5),
-                0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .speaker-real-img-container::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: -6px;
-            right: -6px;
-            bottom: -6px;
-            background: var(--gradient-neon);
-            border-radius: 50%;
-            z-index: -1;
-            animation: rotate 3s linear infinite;
-        }
-
-        .speaker-real-img-container .speaker-real-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center;
-            margin: 0;
-            display: block;
-            transition: all 0.3s ease;
-        }
-
-        .speaker-real-img-container:hover {
-            transform: scale(1.05);
-            box-shadow: 
-                0 0 40px rgba(0, 255, 255, 0.7),
-                0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .speaker-name {
-            font-size: 1.4rem;
+        .bio-name {
+            font-size: 1.6rem;
             color: var(--primary-neon);
             margin-bottom: 0.5rem;
             font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+
+        .bio-role {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .bio-institution {
+            color: var(--secondary-neon);
+            font-size: 0.9rem;
             font-weight: 600;
         }
 
-        .speaker-title {
+        .bio-text {
+            font-size: 1rem;
+            line-height: 1.7;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            text-align: justify;
+        }
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
         }
 
-        .speaker-affiliation {
+        .speaker-bio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .speaker-bio-card:hover::before {
+            left: 100%;
+        }
+
+        .speaker-bio-card:hover {
+            border-color: rgba(255, 0, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 255, 0.2);
+        }
+
+        .bio-avatar {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-neon);
+            padding: 3px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 25px rgba(255, 0, 255, 0.4),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .bio-avatar::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 4s linear infinite;
+        }
+
+        .bio-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            transition: all 0.3s ease;
+        }
+
+        .bio-content {
+            flex: 1;
+        }
+
+        .bio-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .bio-name {
+            font-size: 1.6rem;
+            color: var(--primary-neon);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+        }
+
+        .bio-role {
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .bio-institution {
+            color: var(--secondary-neon);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bio-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            text-align: justify;
         }
 
         /* Schedule table */
@@ -840,6 +893,18 @@
             .menu-toggle {
                 display: block;
             }
+
+            .speaker-bio-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .bio-avatar {
+                align-self: center;
+                width: 100px;
+                height: 100px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -862,6 +927,25 @@
             
             .section-title {
                 font-size: 2rem;
+            }
+
+            .speaker-bio-card {
+                padding: 2rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .bio-avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .bio-name {
+                font-size: 1.4rem;
+            }
+
+            .bio-text {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -938,69 +1022,70 @@
         </section>
 
         <!-- Speakers Section -->
-        <!-- <section id="speakers" class="fade-in">
-            <h2 class="section-title">Keynote Speakers</h2>
-            <div class="grid-container">
-                <div class="speaker-card">
-                    <div class="speaker-img">LB</div>
-                    <h3 class="speaker-name">Leon Bottou</h3>
-                    <p class="speaker-title">Distinguished Researcher</p>
-                    <p class="speaker-affiliation">Meta AI Research</p>
-                </div>
-                <div class="speaker-card">
-                    <div class="speaker-img">BC</div>
-                    <h3 class="speaker-name">Beidi Chen</h3>
-                    <p class="speaker-title">Panel Discussion Host</p>
-                    <p class="speaker-affiliation">Carnegie Mellon University</p>
-                </div>
-                <div class="speaker-card">
-                    <div class="speaker-img">?</div>
-                    <h3 class="speaker-name">Speaker TBD</h3>
-                    <p class="speaker-title">Invited Speaker</p>
-                    <p class="speaker-affiliation">To Be Announced</p>
-                </div>
-                <div class="speaker-card">
-                    <div class="speaker-img">?</div>
-                    <h3 class="speaker-name">Speaker TBD</h3>
-                    <p class="speaker-title">Invited Speaker</p>
-                    <p class="speaker-affiliation">To Be Announced</p>
-                </div>
-            </div>
-        </section> -->
         <section id="speakers" class="fade-in">
             <h2 class="section-title">Keynote Speakers</h2>
-            <div class="grid-container">
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/bottou.jpg" alt="Leon" class="speaker-real-img">
-                    </div>
-                    <h3 class="speaker-name">Leon Bottou</h3>
-                    <p class="speaker-title">Research Scientist</p>
-                    <p class="speaker-affiliation">Meta AI Research</p>
+            
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/bottou.jpg" alt="Leon Bottou">
                 </div>
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/zhihao.jpg" alt="Zhihao Jia" class="speaker-real-img">
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Leon Bottou</h4>
+                        <p class="bio-role">Research Scientist</p>
+                        <p class="bio-institution">Meta AI Research</p>
                     </div>
-                    <h3 class="speaker-name">Zhihao Jia</h3>
-                    <p class="speaker-title">Assistant Professor</p>
-                    <p class="speaker-affiliation">Carnegie Mellon University</p>
+                    <p class="bio-text">
+                        Leon Bottou is a renowned researcher in machine learning, optimization, and AI systems, currently a Research Scientist at Meta AI. Bottou is best known for his pioneering work on stochastic gradient descent (SGD), large-scale learning algorithms, and practical AI systems. His influential contributions span from the development of the DjVu document compression technology to the widely used LeNet convolutional network architecture. Bottou has also made foundational contributions to online learning, kernel methods, and scalable ML systems. His work has been widely recognized across both academia and industry, making him a leader for NeurIPS discussions on the future of scalable and sustainable ML from modeling to practical deployment.
+                    </p>
                 </div>
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/yingnian_wu.jpg" alt="yingnian" class="speaker-real-img">
-                    </div>
-                    <h3 class="speaker-name">Ying Nian Wu</h3>
-                    <p class="speaker-title">Professor</p>
-                    <p class="speaker-affiliation">University of California, Los Angeles</p>
+            </div>
+
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/zhihao.jpg" alt="Zhihao Jia">
                 </div>
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/wenjinzheng.jpg" alt="drzheng" class="speaker-real-img">
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Zhihao Jia</h4>
+                        <p class="bio-role">Assistant Professor</p>
+                        <p class="bio-institution">Carnegie Mellon University</p>
                     </div>
-                    <h3 class="speaker-name">W. Jim Zheng</h3>
-                    <p class="speaker-title">Professor</p>
-                    <p class="speaker-affiliation">UTHealth Houston</p>
+                    <p class="bio-text">
+                        Zhihao Jia is an assistant professor in the Computer Science Department at Carnegie Mellon University. His research interests lie in the intersection of computer systems and machine learning, with a focus on building efficient, scalable, and performant systems for ML applications. Prof. Jia received his PhD and MS from Stanford University where he also got the Arthur Samuel Best Doctoral Thesis Award. He is the recipient of the Sloan Research Fellow, NSF CAREER award and research awards from Amazon, Cisco, Google, Meta, Oracle, Qualcomm, and Samsung.
+                    </p>
+                </div>
+            </div>
+
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/yingnian_wu.jpg" alt="Ying Nian Wu">
+                </div>
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Ying Nian Wu</h4>
+                        <p class="bio-role">Professor</p>
+                        <p class="bio-institution">University of California, Los Angeles</p>
+                    </div>
+                    <p class="bio-text">
+                        Ying Nian Wu is a professor in the Department of Statistics at University of California, Los Angeles (UCLA). He received his Ph.D. in statistics from Harvard University in 1996. Before joining UCLA, he was an assistant professor in the Department of Statistics, University of Michigan from 1997 to 1999. His research interests include generative modeling, representation learning, and computer vision. He received Honorable Mention for the David Marr Prize in 1999 and 2007 for generative modeling in computer vision.
+                    </p>
+                </div>
+            </div>
+
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/wenjinzheng.jpg" alt="W. Jim Zheng">
+                </div>
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">W. Jim Zheng</h4>
+                        <p class="bio-role">Professor</p>
+                        <p class="bio-institution">UTHealth Houston</p>
+                    </div>
+                    <p class="bio-text">
+                        W. Jim Zheng is a professor at the McWilliams School of Biomedical Informatics at UTHealth Houston. His research bridges efficient machine learning and biomedical informatics, with a focus on scalable knowledge representation, high-throughput genomic data mining, and AI-driven translational medicine. He pioneered Genome3D for 3D genome visualization and developed Ontology Fingerprints, an early embedding framework for biomedical knowledge. His group also advanced efficient deep learning approaches for drug combination prediction and alternative splicing analysis with AlphaFold. Dr. Zheng will introduce the significant scalability challenges in the core computation tasks of NIH BRAIN Initiative and bring a strong scientific rationale for this workshop.
+                    </p>
                 </div>
             </div>
         </section>
@@ -1101,27 +1186,52 @@
         <!-- Organizers Section -->
         <section id="organizers" class="fade-in">
             <h2 class="section-title">Workshop Organizers</h2>
-            <div class="grid-container">
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/zhaozhuo.jpg" alt="Zhaozhuo Xu" class="speaker-real-img">
-                    </div>
-                    <h4 class="speaker-name">Zhaozhuo Xu</h4>
-                    <p class="speaker-affiliation">Stevens Institute of Technology</p>
+            
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/zhaozhuo.jpg" alt="Zhaozhuo Xu">
                 </div>
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/jianwen.jpg" alt="Jianwen Xie" class="speaker-real-img">
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Zhaozhuo Xu</h4>
+                        <p class="bio-role">Assistant Professor</p>
+                        <p class="bio-institution">Stevens Institute of Technology</p>
                     </div>
-                    <h4 class="speaker-name">Jianwen Xie</h4>
-                    <p class="speaker-affiliation">Lambda, Inc</p>
+                    <p class="bio-text">
+                        Zhaozhuo Xu is an Assistant Professor in the Department of Computer Science at Stevens Institute of Technology. His research focuses on advancing scalable and sustainable AI, particularly developing randomized algorithms to improve the efficiency of AI systems on commodity hardware for practical applications. Dr. Xu's work has been featured in leading academic venues, including NeurIPS, ICML, ICLR, KDD, ACL, and EMNLP. His innovations in scalable AI have been integrated into widely used libraries such as Huggingface and adopted by several startups. He also serves as an area chair for major conferences, including NeurIPS, ICML, ICLR, ACL, EMNLP Main/Demo Track, and COLING. He received the AAAI New Faculty Highlights in 2025.
+                    </p>
                 </div>
-                <div class="speaker-card">
-                    <div class="speaker-real-img-container">
-                        <img src="images/beidi_chen_pic.jpg" alt="Beidi Chen" class="speaker-real-img">
+            </div>
+
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/jianwen.jpg" alt="Jianwen Xie">
+                </div>
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Jianwen Xie</h4>
+                        <p class="bio-role">Research Scientist</p>
+                        <p class="bio-institution">Lambda, Inc</p>
                     </div>
-                    <h4 class="speaker-name">Beidi Chen</h4>
-                    <p class="speaker-affiliation">Carnegie Mellon University</p>
+                    <p class="bio-text">
+                        Jianwen Xie is a Research Scientist at Lambda, Inc, with a focus on generative modeling, vision language models, AI for Science, and embodied AI. He received his Ph.D. from the University of California, Los Angeles (UCLA). Dr. Xie serves as a Senior Area Chair for NeurIPS, and Area Chair for ICML, ICLR, CVPR, ECCV and WACV. He is currently an Associate Editor of IEEE Transactions on Neural Networks and Learning Systems (TNNLS), IEEE Transactions on Image Processing (TIP), Pattern Recognition (PR), Computer Vision and Image Understanding (CVIU), and Journal of Artificial Intelligence Research (JAIR). He co-organized tutorials at CVPR, ICCV, ECCV, and IJCAI.
+                    </p>
+                </div>
+            </div>
+
+            <div class="speaker-bio-card">
+                <div class="bio-avatar">
+                    <img src="images/beidi_chen_pic.jpg" alt="Beidi Chen">
+                </div>
+                <div class="bio-content">
+                    <div class="bio-header">
+                        <h4 class="bio-name">Beidi Chen</h4>
+                        <p class="bio-role">Assistant Professor</p>
+                        <p class="bio-institution">Carnegie Mellon University</p>
+                    </div>
+                    <p class="bio-text">
+                        Beidi Chen is an Assistant Professor at Carnegie Mellon University and a Research Scientist at FAIR. Before that, she was a postdoctoral scholar at Stanford University. She received her Ph.D. from Rice University. Her research focuses on efficient deep learning; specifically, she designs and optimizes randomized algorithms on current hardware to accelerate large machine learning systems. Her work has won best paper runner-up at ICML 2022 and she was selected as a Rising Star in EECS by MIT and UIUC. She was a workshop chair for MLSys 2023 and 2024, and she co-organized many workshops at ICML and NeurIPS.
+                    </p>
                 </div>
             </div>
         </section>

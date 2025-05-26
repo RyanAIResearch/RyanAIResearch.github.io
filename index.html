@@ -537,8 +537,8 @@
 
         .bio-avatar {
             flex-shrink: 0;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background: var(--gradient-neon);
             padding: 3px;
@@ -648,8 +648,8 @@
 
         .bio-avatar {
             flex-shrink: 0;
-            width: 120px;
-            height: 120px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background: var(--gradient-neon);
             padding: 3px;
@@ -716,6 +716,134 @@
             line-height: 1.7;
             color: var(--text-secondary);
             text-align: justify;
+        }
+
+        /* Program Committee Styles */
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .committee-member {
+            background: rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .committee-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .committee-member:hover::before {
+            left: 100%;
+        }
+
+        .committee-member:hover {
+            border-color: var(--primary-neon);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .member-name {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-neon);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .member-affiliation {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .topic-item {
+            background: rgba(0, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.08), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .topic-item:hover::before {
+            left: 100%;
+        }
+
+        .topic-item:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.15);
+        }
+
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-neon);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        .topic-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin: 0;
         }
 
         /* Schedule table */
@@ -902,8 +1030,8 @@
 
             .bio-avatar {
                 align-self: center;
-                width: 100px;
-                height: 100px;
+                width: 200px;
+                height: 200px;
             }
         }
         
@@ -936,8 +1064,8 @@
             }
 
             .bio-avatar {
-                width: 100px;
-                height: 100px;
+                width: 200px;
+                height: 200px;
             }
 
             .bio-name {
@@ -959,11 +1087,12 @@
         <div class="nav-header">Navigation</div>
         <ul class="nav-links">
             <li><a href="#about" class="nav-link">Workshop Summary</a></li>
-            <li><a href="#speakers" class="nav-link">Keynote Speakers</a></li>
+            <li><a href="#speakers" class="nav-link">Invited Speakers</a></li>
             <li><a href="#schedule" class="nav-link">Schedule</a></li>
             <li><a href="#organizers" class="nav-link">Organizers</a></li>
             <li><a href="#submission" class="nav-link">Call for Papers</a></li>
             <li><a href="#scope" class="nav-link">Scope</a></li>
+            <li><a href="#committee" class="nav-link">Program Committee</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
     </nav>
@@ -996,9 +1125,9 @@
                         <strong>International Workshop</strong>
                     </div>
                 </div>
-                <div style="margin-top: 3rem;">
+                <!-- <div style="margin-top: 3rem;">
                     <a href="#submission" class="btn">Submit Your Paper</a>
-                </div>
+                </div> -->
             </div>
         </section>
 
@@ -1023,7 +1152,7 @@
 
         <!-- Speakers Section -->
         <section id="speakers" class="fade-in">
-            <h2 class="section-title">Keynote Speakers</h2>
+            <h2 class="section-title">Invited Speakers</h2>
             
             <div class="speaker-bio-card">
                 <div class="bio-avatar">
@@ -1262,9 +1391,9 @@
                 <p class="content-text">
                     <span class="subsection">Awards:</span> Two outstanding papers and two outstanding student papers will be recognized by the program committee. Our confirmed sponsor, Lambda, will award $1,500 in GPU credits to each outstanding paper team. To promote diversity and inclusion, we have secured sponsorship from Lambda to offer support, including GPU cloud credits for outstanding papers.
                 </p>
-                <div style="text-align: center; margin-top: 3rem;">
+                <!-- <div style="text-align: center; margin-top: 3rem;">
                     <a href="#" class="btn">Submit Your Paper</a>
-                </div>
+                </div> -->
             </div>
         </section>
 
@@ -1272,21 +1401,117 @@
         <section id="scope" class="fade-in">
             <h2 class="section-title">Workshop Scope</h2>
             <div class="glass-card">
-                <p class="content-text">
-                    This workshop focuses on the intersection of algorithmic research and practical AI model development. We welcome contributions across several key areas:
+                <h3 style="color: var(--primary-neon); margin-bottom: 2rem; font-family: 'Orbitron', monospace; font-size: 1.3rem;">Paper Topics</h3>
+                <p class="content-text" style="margin-bottom: 2rem;">
+                    We welcome papers with topics as follows:
                 </p>
-                <p class="content-text">
-                    <span class="subsection">Algorithmic Foundations:</span> Novel algorithms for training, inference, and optimization of large-scale AI models, with emphasis on theoretical guarantees and practical performance.
-                </p>
-                <p class="content-text">
-                    <span class="subsection">Data Structures:</span> Innovative data structures for handling massive datasets, including efficient storage, retrieval, and processing mechanisms for AI workloads.
-                </p>
-                <p class="content-text">
-                    <span class="subsection">System Design:</span> Co-design approaches that consider hardware-software interactions, distributed computing architectures, and memory-efficient implementations.
-                </p>
-                <p class="content-text">
-                    <span class="subsection">Efficiency Metrics:</span> Research on novel evaluation metrics for AI system efficiency, including energy consumption, carbon footprint, and resource utilization measurements.
-                </p>
+                
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <h4 class="topic-title">1. Data-efficient modeling beyond auto-regressive modeling</h4>
+                        <p class="topic-description">(e.g., discrete diffusion models and latent thought vectors for language modeling)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">2. Unified efficient modeling across multi-modalities, including text, vision, audio and genes</h4>
+                        <p class="topic-description">(e.g., unified tokenizer for vision and language)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">3. Efficient model architecture beyond Transformers</h4>
+                        <p class="topic-description">(e.g., state-space models, convolution-based models, hybrid models)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">4. Hardware-aware ML algorithms beyond giant matrix multiplication for efficient training and inference</h4>
+                        <p class="topic-description">(e.g., sparsity-driven computing, low-rank algorithms, tensor decomposition)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">5. Benchmarks to evaluate accuracy-efficiency trade-offs of ML systems</h4>
+                        <p class="topic-description">(e.g., benchmark efficiency in LLM reasoning, long-context understanding)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">6. Co-design of modeling, algorithm, system and hardware for efficient ML</h4>
+                        <p class="topic-description">(e.g., sparse ML systems with customized hardware such as FPGA)</p>
+                    </div>
+                    
+                    <div class="topic-item">
+                        <h4 class="topic-title">7. Efficient ML for driving accelerated scientific discovery</h4>
+                        <p class="topic-description">(e.g., accelerated material design, gene pathway discovery)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Program Committee Section -->
+        <section id="committee" class="fade-in">
+            <h2 class="section-title">Program Committee</h2>
+            <div class="glass-card">
+                <h3 style="color: var(--primary-neon); margin-bottom: 2rem; font-family: 'Orbitron', monospace; text-align: center; font-size: 1.3rem;">Reviewers (Invited, in Alphabetical Order)</h3>
+                <div class="committee-grid">
+                    <div class="committee-member">
+                        <span class="member-name">Aditya Desai</span>
+                        <span class="member-affiliation">(UCB)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Alay Shah</span>
+                        <span class="member-affiliation">(Together)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Benjamin Coleman</span>
+                        <span class="member-affiliation">(Google)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Chuang Zhou</span>
+                        <span class="member-affiliation">(PolyU, HK)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Henry Zhong</span>
+                        <span class="member-affiliation">(Rice)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Meilong Xu</span>
+                        <span class="member-affiliation">(Stony Brook)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Ranajoy Sadhukhan</span>
+                        <span class="member-affiliation">(CMU)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Tianfu Fu</span>
+                        <span class="member-affiliation">(OpenAI)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Wentao Guo</span>
+                        <span class="member-affiliation">(Princeton)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Wenya Xie</span>
+                        <span class="member-affiliation">(UMN)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Yanzhou Pan</span>
+                        <span class="member-affiliation">(Google)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Yide Ran</span>
+                        <span class="member-affiliation">(Stevens)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Yimeng Zeng</span>
+                        <span class="member-affiliation">(UPenn)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Yuheng Wu</span>
+                        <span class="member-affiliation">(Stanford)</span>
+                    </div>
+                    <div class="committee-member">
+                        <span class="member-name">Zhuoming Chen</span>
+                        <span class="member-affiliation">(CMU)</span>
+                    </div>
+                </div>
             </div>
         </section>
 

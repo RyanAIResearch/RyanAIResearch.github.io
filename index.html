@@ -307,7 +307,8 @@
 
         /* Main Content */
         .main-content {
-            margin-right: 260px;
+            margin-right: auto;
+            margin-left: auto;
             transition: margin-right 0.3s ease;
         }
 
@@ -554,6 +555,89 @@
             border-radius: 50%;
             z-index: -1;
             animation: rotate 3s linear infinite;
+        }
+
+        .speaker-real-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            margin: 0 auto 1.5rem;
+            display: block;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.5),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+            /* border: 3px solid transparent; */
+            background: var(--gradient-neon);
+            /* padding: 3px; */
+            transition: all 0.3s ease;
+        }
+
+        .speaker-real-img::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        .speaker-real-img:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.7),
+                0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .speaker-real-img-container {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: var(--gradient-neon);
+            padding: 3px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.5),
+                0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .speaker-real-img-container::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            background: var(--gradient-neon);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        .speaker-real-img-container .speaker-real-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            margin: 0;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .speaker-real-img-container:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 40px rgba(0, 255, 255, 0.7),
+                0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes rotate {
@@ -887,25 +971,33 @@
             <h2 class="section-title">Keynote Speakers</h2>
             <div class="grid-container">
                 <div class="speaker-card">
-                    <div class="speaker-img">LB</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/bottou.jpg" alt="Leon" class="speaker-real-img">
+                    </div>
                     <h3 class="speaker-name">Leon Bottou</h3>
                     <p class="speaker-title">Research Scientist</p>
                     <p class="speaker-affiliation">Meta AI Research</p>
                 </div>
                 <div class="speaker-card">
-                    <div class="speaker-img">ZJ</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/zhihao.jpg" alt="Zhihao Jia" class="speaker-real-img">
+                    </div>
                     <h3 class="speaker-name">Zhihao Jia</h3>
                     <p class="speaker-title">Assistant Professor</p>
                     <p class="speaker-affiliation">Carnegie Mellon University</p>
                 </div>
                 <div class="speaker-card">
-                    <div class="speaker-img">YW</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/yingnian_wu.jpg" alt="yingnian" class="speaker-real-img">
+                    </div>
                     <h3 class="speaker-name">Ying Nian Wu</h3>
                     <p class="speaker-title">Professor</p>
                     <p class="speaker-affiliation">University of California, Los Angeles</p>
                 </div>
                 <div class="speaker-card">
-                    <div class="speaker-img">WZ</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/wenjinzheng.jpg" alt="drzheng" class="speaker-real-img">
+                    </div>
                     <h3 class="speaker-name">W. Jim Zheng</h3>
                     <p class="speaker-title">Professor</p>
                     <p class="speaker-affiliation">UTHealth Houston</p>
@@ -1007,41 +1099,27 @@
         </section>
 
         <!-- Organizers Section -->
-        <!-- <section id="organizers" class="fade-in">
-            <h2 class="section-title">Workshop Organizers</h2>
-            <div class="grid-container">
-                <div class="speaker-card">
-                    <div class="speaker-img">ZX</div>
-                    <h4 class="speaker-name">Zhaozhuo Xu</h4>
-                    <p class="speaker-affiliation">Rice University</p>
-                </div>
-                <div class="speaker-card">
-                    <div class="speaker-img">JX</div>
-                    <h4 class="speaker-name">Jianwen Xie</h4>
-                    <p class="speaker-affiliation">University of California</p>
-                </div>
-                <div class="speaker-card">
-                    <div class="speaker-img">BD</div>
-                    <h4 class="speaker-name">Beidi Chen</h4>
-                    <p class="speaker-affiliation">Carnegie Mellon University</p>
-                </div>
-            </div>
-        </section> -->
         <section id="organizers" class="fade-in">
             <h2 class="section-title">Workshop Organizers</h2>
             <div class="grid-container">
                 <div class="speaker-card">
-                    <div class="speaker-img">ZX</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/zhaozhuo.jpg" alt="Zhaozhuo Xu" class="speaker-real-img">
+                    </div>
                     <h4 class="speaker-name">Zhaozhuo Xu</h4>
                     <p class="speaker-affiliation">Stevens Institute of Technology</p>
                 </div>
                 <div class="speaker-card">
-                    <div class="speaker-img">JX</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/jianwen.jpg" alt="Jianwen Xie" class="speaker-real-img">
+                    </div>
                     <h4 class="speaker-name">Jianwen Xie</h4>
                     <p class="speaker-affiliation">Lambda, Inc</p>
                 </div>
                 <div class="speaker-card">
-                    <div class="speaker-img">BC</div>
+                    <div class="speaker-real-img-container">
+                        <img src="images/beidi_chen_pic.jpg" alt="Beidi Chen" class="speaker-real-img">
+                    </div>
                     <h4 class="speaker-name">Beidi Chen</h4>
                     <p class="speaker-affiliation">Carnegie Mellon University</p>
                 </div>

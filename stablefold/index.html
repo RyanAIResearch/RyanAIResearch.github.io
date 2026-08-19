@@ -162,6 +162,7 @@ code {
 /* ---------- panels & charts ---------- */
 
 .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.stack { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
 .panel {
   background: var(--surface); border: 1px solid var(--rule); border-radius: 10px;
@@ -312,7 +313,7 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
   <p class="lede">Each bar is one complete <code>run_openfold train</code> process, timed end to end
      with <code>/usr/bin/time</code> &#x2014; startup, compile, training and validation included. Same seed,
      same data, same precision; only the kernel backend changes.</p>
-  <div class="grid3" id="wallCharts"></div>
+  <div class="stack" id="wallCharts"></div>
 
   <h3>Every run</h3>
   <div class="tw">
@@ -480,9 +481,13 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
 
   // ---------- horizontal bar charts (wall clock, energy) ----------
 
-  function barChart(crop, pick, fmt, sub) {
-    var W = 470, H = 20 + BACKENDS.length * 40 + 8;
-    var X0 = 108, BARMAX = 228, BH = 18;
+  /* Full-width bar chart: label | track+bar | value at the bar end |
+     delta in a right-hand column. One panel per crop, each on its own scale
+     because 384 and 768 differ by ~3x. */
+  function barChart(crop, pick, fmt) {
+    var W = 960, ROW = 42, BH = 24;
+    var H = 12 + BACKENDS.length * ROW;
+    var X0 = 162, BARMAX = 620;
     var vals = BACKENDS.map(function (b) { return pick(run(crop, b.id)); });
     var max = Math.max.apply(null, vals);
     var ref = pick(run(crop, "stablefold"));
@@ -490,17 +495,16 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
 
     BACKENDS.forEach(function (b, i) {
       var v = vals[i];
-      var y = 16 + i * 40;
-      var w = Math.max(2, (v / max) * BARMAX);
+      var y = 12 + i * ROW;
+      var w = Math.max(3, (v / max) * BARMAX);
       var isSf = b.id === "stablefold";
+      var mid = y + BH * 0.71;
 
-      s.text(X0 - 11, y + BH * 0.72, b.label, isSf ? "lbl hi" : "lbl", 11.5, "end");
-      s.rect(X0, y, BARMAX, BH, "track");
+      s.text(X0 - 14, mid, b.label, isSf ? "lbl hi" : "lbl", 15, "end");
       s.rect(X0, y, w, BH, "k-" + b.id, isSf ? "" : ' opacity="0.72"');
-      s.text(X0 + w + 8, y + BH * 0.72, fmt(v), isSf ? "val hi" : "val", 11.5);
-      s.text(X0 + 1, y + BH + 13,
-             isSf ? sub(run(crop, b.id)) : pct((v / ref - 1) * 100) + " more",
-             "ax", 10);
+      s.text(X0 + w + 11, mid, fmt(v), isSf ? "val hi" : "val", 15);
+      s.text(W, mid, isSf ? "reference" : pct((v / ref - 1) * 100) + " more",
+             isSf ? "val hi" : "ax", 13, "end");
     });
     return s.done();
   }
@@ -512,10 +516,7 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
       host.appendChild(el("div", "panel",
         '<div class="pt">crop ' + crop + '</div><div class="ps">400 steps \u00b7 StableFold at ' +
         (sf.wall / STEPS).toFixed(2) + " s/step</div>" +
-        barChart(crop,
-                 function (r) { return r.wall; },
-                 hms,
-                 function (r) { return "reference \u00b7 " + (r.wall / STEPS).toFixed(2) + " s/step"; })));
+        barChart(crop, function (r) { return r.wall; }, hms)));
     });
 
     var tb = document.querySelector("#wallTable tbody");

@@ -318,15 +318,6 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
       <tbody></tbody>
     </table>
   </div>
-  <p class="aside">Startup sits inside these numbers, but it does not distort them. Measured from the
-     power traces (process start to GPU memory above 2 GB) it is <b>70.2 s for every run</b>, identical
-     across backends; recomputing each margin on training time alone moves it by at most 0.27 pp &#x2014; crop 768
-     against cuEquivariance goes from +3.42% to +3.45%. At these crop sizes 400 steps is also 1.3&#x2013;3.9 hours
-     of sustained load, so thermal and allocator steady state are long since reached.</p>
-  <p class="aside">Nine of the twelve runs carry a harness-recorded <code>wall_seconds</code> line.
-     Three &#x2014; cuEq at 384, Triton at 384, cuEq at 640 &#x2014; come from an earlier baseline session whose
-     status file was not kept; their time is reconstructed from run-artifact timestamps, carrying roughly &#xb1;80&nbsp;s of uncertainty on a ~5000&nbsp;s run. The crop-768
-     block is entirely same-session, same-commit, all four arms directly measured.</p>
 </section>
 
 <section>

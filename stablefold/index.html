@@ -277,13 +277,6 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
 .bk i { width: 9px; height: 9px; border-radius: 2px; background: currentColor; flex: none; }
 .bk b { font-weight: 400; color: var(--body); }
 
-.chip {
-  font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
-  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted);
-}
-.chip.m { color: var(--good); border-color: color-mix(in srgb, var(--good) 40%, transparent); }
-.chip.d { color: var(--flag); border-color: color-mix(in srgb, var(--flag) 40%, transparent); }
-
 @media (max-width: 620px) {
   .page { padding: 0 18px 64px; }
   .mast { padding: 44px 0 30px; }
@@ -320,7 +313,7 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
     <table id="wallTable">
       <thead><tr>
         <th>Crop</th><th>Backend</th><th class="n">Wall clock</th><th class="n">s / step</th>
-        <th class="n">Steps / h</th><th class="n">vs StableFold</th><th>Timing</th>
+        <th class="n">Steps / h</th><th class="n">vs StableFold</th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -332,8 +325,7 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
      of sustained load, so thermal and allocator steady state are long since reached.</p>
   <p class="aside">Nine of the twelve runs carry a harness-recorded <code>wall_seconds</code> line.
      Three &#x2014; cuEq at 384, Triton at 384, cuEq at 640 &#x2014; come from an earlier baseline session whose
-     status file was not kept; their time is reconstructed from run-artifact timestamps and marked
-     <b>derived</b>, carrying roughly &#xb1;80&nbsp;s of uncertainty on a ~5000&nbsp;s run. The crop-768
+     status file was not kept; their time is reconstructed from run-artifact timestamps, carrying roughly &#xb1;80&nbsp;s of uncertainty on a ~5000&nbsp;s run. The crop-768
      block is entirely same-session, same-commit, all four arms directly measured.</p>
 </section>
 
@@ -361,8 +353,8 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
   </div>
   <p class="aside">Board power as reported by the driver, so this is the GPU package only &mdash; host
      CPU, system memory and cooling are not in it. Mean is the arithmetic mean of the samples and peak
-     their maximum; neither is fitted or integrated. For the three runs marked <b>derived</b> in the
-     wall-clock table the samples come from the shared continuous log over the same window.</p>
+     their maximum; neither is fitted or integrated. For the three earlier-session baseline
+     runs the samples come from the shared continuous log over the same window.</p>
 </section>
 
 <section>
@@ -546,9 +538,7 @@ td.n.win { color: var(--c-sf); font-weight: 500; }
           '<td class="n">' + (r.wall / STEPS).toFixed(2) + "</td>" +
           '<td class="n">' + (STEPS / (r.wall / 3600)).toFixed(1) + "</td>" +
           '<td class="n' + (isSf ? " win" : "") + '">' +
-            (isSf ? "reference" : pct((r.wall / ref - 1) * 100)) + "</td>" +
-          '<td><span class="chip ' + (r.wall_source === "measured" ? "m" : "d") + '">' +
-            r.wall_source + "</span></td>";
+            (isSf ? "reference" : pct((r.wall / ref - 1) * 100)) + "</td>";
         tb.appendChild(tr);
       });
     });

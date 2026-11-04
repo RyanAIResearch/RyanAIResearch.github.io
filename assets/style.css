@@ -105,7 +105,7 @@ ol.pubs li { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 8px 
 ol.pubs li:first-child { border-top: 0; padding-top: 0; }
 ol.pubs li > :not(.venue-logo) { grid-column: 2; }
 .venue-logo { grid-column: 1; grid-row: 1 / span 3; display: flex; align-items: center; justify-content: center; width: 64px; height: 34px; padding: 4px; }
-.venue-logo img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(1); opacity: .75; }
+.venue-logo img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
 .venue-logo.text { font-family: var(--font-mono); font-size: .625rem; line-height: 1.4; text-align: center; color: var(--muted); }
 .ptitle { font-weight: 500; font-size: 1.0625rem; line-height: 1.45; letter-spacing: -.015em; text-wrap: pretty; }
 .authors { color: var(--muted); font-size: .8125rem; line-height: 1.6; }

@@ -65,8 +65,7 @@ h3 { margin: 0; font-family: var(--font-serif); font-weight: 400; font-size: 2.5
 .project-main h3 { margin-top: -6px; }
 .lead { max-width: 58ch; font-size: 1.0625rem; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
 .plinks { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: .9375rem; }
-.partners { display: block; width: 100%; max-width: 400px; height: auto; margin-top: 6px; mix-blend-mode: multiply; filter: grayscale(1); opacity: .6; transition: filter .25s, opacity .25s; }
-.partners:hover { filter: none; opacity: 1; }
+.partners { display: block; width: 100%; max-width: 400px; height: auto; margin-top: 6px; mix-blend-mode: multiply; }
 .metrics { grid-column: 2; display: grid; align-content: start; }
 .figs { display: grid; margin: 0; }
 .figs div { padding: 14px 0 18px; border-top: 1px solid var(--line); }
@@ -107,8 +106,7 @@ ol.pubs { list-style: none; margin: 0; padding: 0; }
 ol.pubs li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 24px; padding-block: 22px; border-top: 1px solid var(--line); }
 ol.pubs li > :not(.venue-logo) { grid-column: 2; }
 .venue-logo { grid-column: 1; grid-row: 1 / span 3; align-self: start; display: flex; align-items: center; width: 64px; height: 40px; margin-top: 2px; }
-.venue-logo img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(1); opacity: .7; transition: filter .2s, opacity .2s; }
-ol.pubs li:hover .venue-logo img { filter: none; opacity: 1; }
+.venue-logo img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
 .ptitle { font-weight: 500; font-size: 1.0625rem; line-height: 1.45; letter-spacing: -.01em; text-wrap: pretty; }
 .authors { font-size: .875rem; line-height: 1.65; color: var(--muted); }
 .authors strong { font-weight: 500; color: var(--ink); }
@@ -125,8 +123,7 @@ ol.pubs li:hover .venue-logo img { filter: none; opacity: 1; }
 ol.entries { list-style: none; margin: 0; padding: 0; }
 ol.entries li { display: grid; grid-template-columns: 140px 32px minmax(0, 1fr); gap: 4px 20px; align-items: start; padding-block: 22px; border-top: 1px solid var(--line); }
 ol.entries li:first-child { padding-top: 0; border-top: 0; }
-.logo { width: 32px; height: 32px; margin-top: 2px; object-fit: contain; filter: grayscale(1); opacity: .8; transition: filter .2s, opacity .2s; }
-ol.entries li:hover .logo { filter: none; opacity: 1; }
+.logo { width: 32px; height: 32px; margin-top: 2px; object-fit: contain; }
 .org { display: block; font-weight: 500; font-size: 1rem; line-height: 1.5; }
 .what { display: block; font-size: .875rem; color: var(--ink-2); }
 .desc { display: block; max-width: 62ch; margin-top: 6px; font-size: .875rem; line-height: 1.65; color: var(--muted); }

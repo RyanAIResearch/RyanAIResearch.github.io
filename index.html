@@ -78,7 +78,7 @@
   }
   .statement {
     font-size: clamp(1.125rem, 1.7vw, 1.3125rem); line-height: 1.4; letter-spacing: -0.01em; font-weight: 400;
-    max-width: 24ch; text-wrap: balance;
+    white-space: nowrap;
   }
   .role { color: var(--muted); margin-top: 22px; max-width: 46ch; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 36px; }
@@ -221,6 +221,7 @@
     ul.plain li { grid-template-columns: minmax(0, 1fr); gap: 0; }
     .figs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 20px; }
     .prose p:first-child { font-size: 1.0625rem; }
+    .statement { white-space: normal; }
   }
 </style>
 <meta property="og:title" content="Yide Ran">

@@ -94,7 +94,7 @@ summary:hover { color: var(--ink); }
 ol.news { list-style: none; margin: 0; padding: 0; }
 ol.news li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 24px; padding-block: 12px; border-top: 1px solid var(--line); }
 ol.news li:first-child { padding-top: 0; border-top: 0; }
-.date { padding-top: .15em; font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.date { padding-top: .1em; font-size: .8125rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
 ol.news p { color: var(--ink-2); }
 ol.news a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: var(--line-strong); }
 ol.news a:hover { text-decoration-color: currentColor; }
@@ -102,7 +102,7 @@ ol.news a:hover { text-decoration-color: currentColor; }
 .news-archive ol li:first-child { padding-top: 6px; }
 
 /* Publications */
-.pub-year { margin: 0 0 2px; font-family: var(--font-serif); font-weight: 400; font-size: 1.375rem; line-height: 1.2; color: var(--muted); }
+.pub-year { margin: 0 0 2px; font-family: var(--font-serif); font-weight: 400; font-size: 1.5rem; line-height: 1.2; color: var(--ink); }
 ol.pubs + .pub-year { margin-top: 28px; }
 ol.pubs { list-style: none; margin: 0; padding: 0; }
 ol.pubs li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 2px 22px; padding-block: 15px; border-top: 1px solid var(--line); }
@@ -141,7 +141,7 @@ dl.kit dd { color: var(--ink-2); }
 ul.plain { list-style: none; margin: 0; padding: 0; }
 ul.plain li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding-block: 9px; border-top: 1px solid var(--line); color: var(--ink-2); }
 ul.plain li:first-child { padding-top: 0; border-top: 0; }
-ul.plain .yr { font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+ul.plain .yr { font-size: .8125rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
 
 footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; padding-block: 20px 32px; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--muted); }
 footer a { min-height: 32px; }

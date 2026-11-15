@@ -121,6 +121,18 @@ ol.pubs li > :not(.venue-logo) { grid-column: 2; }
 /* About */
 .prose { display: grid; gap: .75em; max-width: 68ch; font-size: .9375rem; line-height: 1.65; color: var(--ink-2); }
 
+/* About: faded photo of Tracy McGrady with the Rockets (CC0, Wikimedia Commons), right of the text */
+#about { position: relative; isolation: isolate; }
+#about .prose { max-width: 58ch; }
+#about::after { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; right: 0; width: min(40%, 460px); pointer-events: none;
+  background: url("tracy-mcgrady-rockets.jpg") 50% 18% / cover no-repeat; opacity: .5;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 38%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 38%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect; }
+.photo-credit { margin: .25em 0 0; font-size: .6875rem; line-height: 1.45; color: var(--muted); }
+.photo-credit a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
+
 /* Experience, education */
 ol.entries { list-style: none; margin: 0; padding: 0; }
 ol.entries li { display: grid; grid-template-columns: 140px 44px minmax(0, 1fr); gap: 4px 20px; align-items: start; padding-block: 15px; border-top: 1px solid var(--line); }
@@ -155,6 +167,8 @@ footer a { min-height: 32px; }
   ol.entries li { grid-template-columns: 120px 44px minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
+  #about .prose { max-width: none; }
+  #about::after { width: 72%; opacity: .2; }
   html { scroll-padding-top: 76px; }
   .wrap { padding-inline: max(24px, env(safe-area-inset-left)) max(24px, env(safe-area-inset-right)); }
   .nav { height: 60px; }

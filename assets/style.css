@@ -121,7 +121,8 @@ ol.pubs li > :not(.venue-logo) { grid-column: 2; }
 /* About */
 .prose { display: grid; gap: .75em; max-width: 68ch; font-size: .9375rem; line-height: 1.65; color: var(--ink-2); }
 
-/* About: faded photo of Tracy McGrady with the Rockets (CC0, Wikimedia Commons), right of the text */
+/* About: faded photo of Tracy McGrady with the Rockets, right of the text.
+   Source: commons.wikimedia.org/wiki/File:Tracy_McGrady_2008-02-13.jpg (CC0, no attribution required) */
 #about { position: relative; isolation: isolate; }
 #about .prose { max-width: 58ch; }
 #about::after { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; right: 0; width: min(40%, 460px); pointer-events: none;
@@ -130,8 +131,6 @@ ol.pubs li > :not(.venue-logo) { grid-column: 2; }
   -webkit-mask-composite: source-in;
   mask-image: linear-gradient(to right, transparent 0, #000 38%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
   mask-composite: intersect; }
-.photo-credit { margin: .25em 0 0; font-size: .6875rem; line-height: 1.45; color: var(--muted); }
-.photo-credit a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 2px; }
 
 /* Experience, education */
 ol.entries { list-style: none; margin: 0; padding: 0; }

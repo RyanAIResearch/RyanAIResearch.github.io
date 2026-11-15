@@ -39,12 +39,6 @@ button, summary { -webkit-tap-highlight-color: transparent; }
 /* Hero */
 .hero { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 52px; align-items: center; padding-block: 48px 56px; }
 .hero > * { min-width: 0; }
-/* Hero: faded cut-out of Kobe Bryant's extended-arm layup, right of the text.
-   Photo: Keith Allison, CC BY-SA 2.0, via commons.wikimedia.org/wiki/File:Kobe_Bryant_vs_Marcin_Gortat.jpg; edited (Kobe cut out, bottom faded). */
-.hero { position: relative; isolation: isolate; }
-.hero::after { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; right: 0; width: clamp(150px, calc(100% - 760px), 320px); pointer-events: none;
-  background: url("kobe-bryant-layup.webp") right center / contain no-repeat; opacity: .42; }
-.credit a { color: inherit; }
 .photo { grid-column: 1; grid-row: 1; }
 .hero-copy { grid-column: 2; grid-row: 1; }
 .avatar { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px; outline: 1px solid rgba(23, 22, 19, .08); outline-offset: -1px; }
@@ -169,14 +163,11 @@ footer a { min-height: 32px; }
   .row { grid-template-columns: 150px minmax(0, 1fr); column-gap: 40px; }
   .project { grid-template-columns: minmax(0, 1fr) 170px; column-gap: 40px; }
   .statement { white-space: normal; }
-  .hero::after { width: max(120px, calc(100% - 725px)); }
   ol.entries li { grid-template-columns: 120px 44px minmax(0, 1fr); }
 }
-@media (max-width: 900px) { .hero::after { display: none; } }
 @media (max-width: 760px) {
   #about .prose { max-width: none; }
   #about::after { width: 72%; opacity: .2; }
-  .hero::after { display: block; width: 60%; opacity: .15; }
   html { scroll-padding-top: 76px; }
   .wrap { padding-inline: max(24px, env(safe-area-inset-left)) max(24px, env(safe-area-inset-right)); }
   .nav { height: 60px; }
